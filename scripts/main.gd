@@ -45,7 +45,7 @@ func start_client():
 	print("Connexion au serveur...")
 	
 	# /!\ METS TON VRAI LIEN RENDER ICI, avec wss:// et SANS LE PORT !
-	var url = "wss://nom-de-ton-serveur.onrender.com" 
+	var url = "wss://server-multi-test.onrender.com" 
 	
 	var err = peer.create_client(url)
 	if err != OK:
