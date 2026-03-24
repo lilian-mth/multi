@@ -19,7 +19,18 @@ func _ready():
 
 func start_server():
 	print("Démarrage du serveur...")
-	var err = peer.create_server(port)
+	
+	# --- LA CORRECTION POUR RENDER ---
+	# On regarde si Render nous impose un port
+	var render_port = OS.get_environment("PORT")
+	if render_port != "":
+		port = render_port.to_int()
+		print("Port fourni par Render : ", port)
+		
+	# On force l'écoute sur "0.0.0.0" pour que Render le détecte bien
+	var err = peer.create_server(port, "0.0.0.0")
+	# ---------------------------------
+	
 	if err != OK:
 		print("Erreur de création du serveur !")
 		return
@@ -28,14 +39,13 @@ func start_server():
 	multiplayer.peer_connected.connect(_on_peer_connected)
 	multiplayer.peer_disconnected.connect(_on_peer_disconnected)
 	
-	# On cache les boutons si le serveur a démarré
 	hide_ui()
 
 func start_client():
 	print("Connexion au serveur...")
-	# Pour le moment on teste sur ton propre PC ("localhost"). 
-	# Plus tard, on mettra l'URL de ton Render ici !
-	var url = "ws://localhost:" + str(port) 
+	
+	# /!\ METS TON VRAI LIEN RENDER ICI, avec wss:// et SANS LE PORT !
+	var url = "wss://nom-de-ton-serveur.onrender.com" 
 	
 	var err = peer.create_client(url)
 	if err != OK:
@@ -43,8 +53,6 @@ func start_client():
 		return
 		
 	multiplayer.multiplayer_peer = peer
-	
-	# On cache les boutons une fois connecté
 	hide_ui()
 
 # --- GESTION DES JOUEURS (C'est le serveur qui gère ça) ---
