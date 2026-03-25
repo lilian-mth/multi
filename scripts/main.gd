@@ -10,12 +10,11 @@ var port = 8080
 @export var player_scene: PackedScene 
 
 func _ready():
-	# Render lancera le jeu avec cet argument pour dire "Je suis le serveur"
 	if "--server" in OS.get_cmdline_args():
 		start_server()
 	else:
-		# Sinon, on crée deux petits boutons temporaires pour tester sur ton PC
-		setup_ui_for_testing()
+		# Plus de boutons ! On lance le client directement.
+		start_client()
 
 func start_server():
 	print("Démarrage du serveur...")

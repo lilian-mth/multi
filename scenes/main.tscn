@@ -20,11 +20,10 @@ offset_left = 256.0
 offset_top = 704.0
 offset_right = 256.0
 offset_bottom = 704.0
-joystick_scale = 0.369
+joystick_scale = 0.5
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1250548130]
 _spawnable_scenes = PackedStringArray("uid://6seegvgub3a3")
 spawn_path = NodePath("../Players")
 
-[node name="Players" parent="." unique_id=900303763 instance=ExtResource("2_sugp2")]
-position = Vector2(256, 320)
+[node name="Players" type="Node2D" parent="." unique_id=903415821]
