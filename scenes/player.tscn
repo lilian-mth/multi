@@ -29,3 +29,6 @@ color = Color(0.21578214, 0.6394647, 0.5025703, 1)
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1107408588]
 replication_config = SubResource("SceneReplicationConfig_i3pqv")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=229205756]
+position_smoothing_enabled = true

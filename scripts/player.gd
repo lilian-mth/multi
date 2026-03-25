@@ -1,17 +1,25 @@
 extends CharacterBody2D
 
-const SPEED = 300
+const SPEED = 200
 
 func _enter_tree():
 	# L'ID du joueur sur le réseau devient le nom du nœud
 	set_multiplayer_authority(name.to_int())
 
 func _ready():
-	# Si c'est NOTRE carré (on est l'autorité)
 	if is_multiplayer_authority():
-		# On choisit une couleur au hasard
-		$ColorRect.color = Color(randf(), randf(), randf())
-		# Et le MultiplayerSynchronizer va l'envoyer à tout le monde !
+		$Camera2D.make_current()
+		
+		# On choisit une couleur aléatoire (Teinte entre 0 et 1)
+		var hue = randf()
+		
+		# Le vert se trouve environ entre 0.20 et 0.45.
+		# Si on tombe dedans, on décale la couleur pour l'éviter !
+		if hue > 0.20 and hue < 0.45:
+			hue += 0.30 
+			
+		# On applique la couleur avec Saturation et Valeur à fond (1.0)
+		$ColorRect.color = Color.from_hsv(hue, 1.0, 1.0)
 
 func _physics_process(delta):
 	# On ne bouge que si c'est NOTRE carré
